@@ -113,7 +113,7 @@ def main():
             st.table(name_df,req_df)
 
 def request_summary(user_input):
-    f = modal.Function.lookup("corise-prod_recommendation-project", "result_formatting")
+    f = modal.Function.lookup("corise-request_summary", "result_formatting")
     output = f.call(user_input)
     return output
 
