@@ -92,7 +92,7 @@ def main():
         name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
 
         st.write("Product Requirements:")
-        data_req_name = result_df.drop("product_name",axis=1)
+        data_req_name = result_df["product_needs"]
         data_req_name["Rank"] = ""
         req_df = st.experimental_data_editor(data_req_name,num_rows="dynamic")
         if st.button("Save Changes"):
@@ -107,6 +107,8 @@ def request_summary(user_input):
     f = modal.Function.lookup("corise-request_summary", "result_formatting")
     output = f.call(user_input)
     return output
+
+def final_recommendation(
 
 if __name__ == '__main__':
     main()
