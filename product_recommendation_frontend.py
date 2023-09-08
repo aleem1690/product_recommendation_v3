@@ -79,7 +79,15 @@ def main():
         
         # Extract product name and requirements
         
-        result_df = pd.DataFrame(result)
+        #result_df = pd.DataFrame(result)
+        result_df = pd.DataFrame()
+
+        for keys,values in result.items():
+          s1 = pd.DataFrame(values)
+          result_df = result_df.concat([result_df,s1],axis=1)
+        result_df.columns = output.keys()
+        result_df.fillna('',inplace=True)
+        
         data_prod_name = result_df["product_name"].drop_duplicates()
         name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
 
