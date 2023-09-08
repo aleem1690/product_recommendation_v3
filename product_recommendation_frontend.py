@@ -108,7 +108,7 @@ def request_summary(user_input):
     output = f.call(user_input)
     return output
 
-def final_recommendation(
+# def final_recommendation(
 
 if __name__ == '__main__':
     main()
