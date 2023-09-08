@@ -87,21 +87,32 @@ def main():
           result_df = pd.concat([result_df,s1],axis=1)
         result_df.columns = result.keys()
         result_df.fillna('',inplace=True)
-        
-        data_prod_name = result_df["product_name"].drop_duplicates()
-        name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
 
-        st.write("Product Requirements:")
-        data_req_name = result_df["product_needs"]
-        data_req_name["Rank"] = ""
-        req_df = st.experimental_data_editor(data_req_name,num_rows="dynamic")
-        if st.button("Save Changes"):
-            st.session_state.result["product_name"] = name_df
-            st.session_state.result["requirements_list"] = req_df
-            st.session_state.result = True
-            st.success("Changes saved!")
+        st.write("Confirm if the details are correct")
+        st.write("You are looking to buy:")
+        st.write(result_df["product_name"][0])
+
+        st.write("Price Range")
+        st.write(result_df["product_price"][0])
+
+        st.write("These are your pririoties")
+        st.write(result_df["product_needs"])
+        
+        # data_prod_name = result_df["product_name"].drop_duplicates()
+        # name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
+
+        # st.write("Product Requirements:")
+        # data_req_name = result_df["product_needs"]
+        # data_req_name["Rank"] = ""
+        # req_df = st.experimental_data_editor(data_req_name,num_rows="dynamic")
+        # if st.button("Save Changes"):
+        #     st.session_state.result["product_name"] = name_df
+        #     st.session_state.result["requirements_list"] = req_df
+        #     st.session_state.result = True
+        #     st.success("Changes saved!")
             
-            st.table(name_df,req_df)
+        #     st.table(name_df,req_df)
+            
 
 def request_summary(user_input):
     f = modal.Function.lookup("corise-request_summary", "result_formatting")
