@@ -89,11 +89,10 @@ def main():
         result_df.fillna('',inplace=True)
 
         st.write("Confirm if the details are correct")
-        st.write("You are looking to buy:")
-        st.write(result_df["product_name"][0])
+        st.write("You are looking to buy: ",result_df["product_name"][0])
+        
 
-        st.write("Price Range")
-        st.write(result_df["product_price"][0])
+        st.write("Price Range: ",result_df["product_price"][0])
 
         st.write("These are your pririoties")
         st.write(result_df["product_needs"])
