@@ -6,8 +6,11 @@ import modal
 import json
 import os
 import whisper
-
-
+import pandas as pd
+# from st_draggable_list import DraggableList
+import speech_recognition as sr
+from audiorecorder import audiorecorder
+import tempfile
 
 def main():
     # Enthusiastic welcome message
@@ -23,17 +26,46 @@ def main():
 
     #setting whisper model
     model = whisper.load_model("base")
+    r = sr.Recognizer()
     
-
     if input_type == "Text":
         # Text box for sharing product needs
-        user_input_text = st.text_area("What do you want to buy today? (text):", "")
+        user_input_text = st.text_area("What do you want to buy today?:", "")
     else:
         # Voice recording option
         st.write("We would love to hear from you!")
-        audio_bytes = audio_recorder()
-        product_needs_voice = st.audio(audio_bytes, format="audio/wav")
-        user_input_text = model.transcribe("audio.mp3")
+        # audio_bytes = audio_recorder()
+        audio_bytes = audiorecorder("Click to record")
+        if len(audio_bytes) > 0:
+            # To play audio in frontend:
+            st.audio(audio_bytes.tobytes())
+            
+            # To save audio to a file:
+            # wav_file = tempfile.TemporaryFile()
+            wav_file = open("audio_bytes.wav", "wb")
+            wav_file.write(audio_bytes.tobytes())
+
+            st.write(wav_file.name)
+
+            audio_tbt = whisper.load_audio("35be1da269ee870eb1c2a9a759869f5155b3b63efa134bbb4e02c095.wav")
+        
+        # typ = type(audio_bytes)
+        # st.write(typ)
+        # product_needs_voice = st.audio(audio_bytes, format="audio/wav")
+        # st.write(product_needs_voice)
+        # audio_tbt = whisper.load_audio(product_needs_voice)
+        # if len(audio_tbt)>0:
+        #     st.write("done")
+        # if product_needs_voice!=None:
+        #     st.write(type(products_needs_voice))
+        # user_input_text = model.transcribe(audio_bytes)
+
+        # with sr.AudioFile(product_needs_voice) as source:
+        #     # listen for the data (load audio to memory)
+        #     audio_data = r.record(source)
+        #     # recognize (convert from speech to text)
+        #     text = r.recognize_google(audio_data)
+        #     print(text)
 
     if st.button("Submit"):
         if input_type == "Text" and user_input_text.strip() != "":
@@ -46,16 +78,43 @@ def main():
           st.warning("Oops! Please share your product needs, either through text or voice recording.")
         
         result = request_summary(user_input_text)
-        st.write("Results")
-        st.write(result['product_name'])
-        st.write(result['requirement_list'])
+        
+        try:
+            # check if the key exists in session state
+            _ = st.session_state.result
+        except AttributeError:
+            # otherwise set it to false
+            st.session_state.result = False
 
-        #if user_input:
-
+        # Display the product name and requirements from ML model
+        st.success("Product Information from ML Model:")
+        
+        # Extract product name and requirements
+        # edited_product_name = st.text_input("Confirm product:", result['product_name'])
+        result_df = pd.DataFrame(result)
+        data_prod_name = result_df["product_name"].drop_duplicates()
+        # data_prod_name = data_prod_name.rename(columns={"product_name":"product identified"})
+        # name_df = st.experimental_data_editor(data_prod_name,num_rows="dynamic")
+        name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
+        # if st.button("Save Changes"):
+        #     st.table(name_df)
+    
+    
+        st.write("Product Requirements:")
+        data_req_name = result_df.drop("product_name",axis=1)
+        data_req_name["Rank"] = ""
+        req_df = st.experimental_data_editor(data_req_name,num_rows="dynamic")
+        if st.button("Save Changes"):
+            st.session_state.result["product_name"] = name_df
+            st.session_state.result["requirements_list"] = req_df
+            st.session_state.result = True
+            st.success("Changes saved!")
+            
+            st.table(name_df,req_df)
 
 def request_summary(user_input):
-    f = modal.Function.lookup("corise-prod_recommendation-project", "summary_breakdown")
-    output = f.call(search_request)
+    f = modal.Function.lookup("corise-prod_recommendation-project", "result_formatting")
+    output = f.call(user_input)
     return output
 
 if __name__ == '__main__':
