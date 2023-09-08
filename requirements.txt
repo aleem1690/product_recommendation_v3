@@ -3,3 +3,4 @@ modal
 modal-client
 bs4
 openai-whisper
+nltk
