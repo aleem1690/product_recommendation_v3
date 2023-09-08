@@ -58,12 +58,13 @@ def main():
           st.success("🚀 Thanks for sharing your thoughts through text!")
           user_input = user_input_text
         elif input_type == "Voice" and user_input_voice is not None:
-          st.success("🎤 Thanks for sharing your thoughts through voice!")
+          csuccess("🎤 Thanks for sharing your thoughts through voice!")
           user_input = user_input_text
         else:
           st.warning("Oops! Please share your product needs, either through text or voice recording.")
         
-        result = request_summary(user_input_text)
+        st.write(user_input)
+        result = request_summary(user_input)
         
         try:
             # check if the key exists in session state
