@@ -65,6 +65,7 @@ def main():
         
         st.write(user_input)
         result = request_summary(user_input)
+        st.write(result)
         
         try:
             # check if the key exists in session state
