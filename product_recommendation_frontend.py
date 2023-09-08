@@ -63,9 +63,9 @@ def main():
         else:
           st.warning("Oops! Please share your product needs, either through text or voice recording.")
         
-        st.write(user_input)
+        
         result = request_summary(user_input)
-        st.write(result)
+        
         
         try:
             # check if the key exists in session state
@@ -84,8 +84,8 @@ def main():
 
         for keys,values in result.items():
           s1 = pd.DataFrame(values)
-          result_df = result_df.concat([result_df,s1],axis=1)
-        result_df.columns = output.keys()
+          result_df = pd.concat([result_df,s1],axis=1)
+        result_df.columns = result.keys()
         result_df.fillna('',inplace=True)
         
         data_prod_name = result_df["product_name"].drop_duplicates()
