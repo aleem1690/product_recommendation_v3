@@ -96,6 +96,11 @@ def main():
 
         st.write("These are your pririoties")
         st.write(result_df["product_needs"])
+        st.write("If the details are correct, please click proceed")
+        no_of_link = 2
+        if st.button("Proceed"):
+            final_product = final_recommendation(result_df,no_of_link)
+            st.write(final_product)
         
         # data_prod_name = result_df["product_name"].drop_duplicates()
         # name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
@@ -118,7 +123,10 @@ def request_summary(user_input):
     output = f.call(user_input)
     return output
 
-# def final_recommendation(
+def final_recommendation(summary_dict,no_of_link):
+    g = modal.Function.lookup("corise-final_recommendation-project","final_product")
+    output = g.call(summary_dict,no_of_link)
+    return output
 
 if __name__ == '__main__':
     main()
