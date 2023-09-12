@@ -59,7 +59,7 @@ def main():
           user_input = user_input_text
         elif input_type == "Voice" and user_input_voice is not None:
           csuccess("🎤 Thanks for sharing your thoughts through voice!")
-          user_input = user_input_text
+          user_input = user_input_voice
         else:
           st.warning("Oops! Please share your product needs, either through text or voice recording.")
         
@@ -98,9 +98,9 @@ def main():
         st.write(result_df["product_needs"])
         st.write("If the details are correct, please click proceed")
         no_of_link = 2
-        if st.button("Proceed"):
-            final_product = final_recommendation(result_df,no_of_link)
-            st.write(final_product)
+    if st.button("Proceed"):
+        final_product = final_recommendation(result_df,no_of_link)
+        st.write(final_product)
         
         # data_prod_name = result_df["product_name"].drop_duplicates()
         # name_df = st.experimental_data_editor(data_prod_name, num_rows="dynamic")
