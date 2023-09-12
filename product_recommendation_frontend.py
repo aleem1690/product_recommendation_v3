@@ -27,6 +27,8 @@ def main():
     #setting whisper model
     model = whisper.load_model("base")
     r = sr.Recognizer()
+
+    st.write(st.session_state)
     
     if input_type == "Text":
         # Text box for sharing product needs
