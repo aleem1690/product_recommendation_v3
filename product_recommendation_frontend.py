@@ -101,7 +101,7 @@ def main():
         if 'result' not in st.session_state:
             st.session_state['result'] = result_df
     no_of_link = 2
-    st.write(st.session_state)
+    st.write(st.session_state['result'])
     if st.button("Proceed"):
         final_product = final_recommendation(result_df,no_of_link)
         st.write(final_product)
