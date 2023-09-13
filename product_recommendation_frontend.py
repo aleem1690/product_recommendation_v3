@@ -107,7 +107,7 @@ def main():
     no_of_link = 2
     st.write(st.session_state['product_name'])
     st.write(st.session_state['product_price'])
-    st.write(st.session_state['product_needs'])
+    st.write(st.session_state['product_needs'][1])
 
 
     
