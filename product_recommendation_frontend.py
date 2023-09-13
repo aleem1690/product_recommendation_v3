@@ -98,10 +98,10 @@ def main():
         st.write("These are your pririoties")
         st.write(result_df["product_needs"])
         st.write("If the details are correct, please click proceed")
-        if 'result' not in st.session_state:
-            st.session_state['result'] = result_df
+        if 'product_name' not in st.session_state:
+            st.session_state['product_name'] = result_df["product_name"][0]
     no_of_link = 2
-    st.write(st.session_state['result'])
+    st.write(st.session_state['product_name'])
     if st.button("Proceed"):
         final_product = final_recommendation(result_df,no_of_link)
         st.write(final_product)
