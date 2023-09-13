@@ -28,7 +28,6 @@ def main():
     model = whisper.load_model("base")
     r = sr.Recognizer()
 
-    st.write(st.session_state)
     
     if input_type == "Text":
         # Text box for sharing product needs
@@ -99,7 +98,10 @@ def main():
         st.write("These are your pririoties")
         st.write(result_df["product_needs"])
         st.write("If the details are correct, please click proceed")
-        no_of_link = 2
+        if 'result' not in st.session_state:
+            st.session_state['result'] = result_df
+    no_of_link = 2
+    st.write(st.session_state)
     if st.button("Proceed"):
         final_product = final_recommendation(result_df,no_of_link)
         st.write(final_product)
