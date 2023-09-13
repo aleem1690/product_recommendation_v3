@@ -101,7 +101,7 @@ def main():
         if 'product_name' not in st.session_state:
             st.session_state['product_name'] = result_df["product_name"][0]
         if 'product_needs' not in st.session_state:
-            st.session_state['product_needs'] = (result_df["product_needs"].to_list())
+            st.session_state['product_needs'] = list(result_df["product_needs"])
         if 'product_price' not in st.session_state and len(result_df["product_price"].unique())>0:
             st.session_state['product_price'] = result_df["product_price"][0]
     no_of_link = 2
