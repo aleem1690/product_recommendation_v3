@@ -100,8 +100,17 @@ def main():
         st.write("If the details are correct, please click proceed")
         if 'product_name' not in st.session_state:
             st.session_state['product_name'] = result_df["product_name"][0]
+        if 'product_needs' not in st.session_state:
+            st.session_state['product_needs'] = result_df["product_needs"][0]
+        if 'product_price' not in st.session_state and len(result_df["product_price"].unique())>0:
+            st.session_state['product_price'] = result_df["product_price"][0]
     no_of_link = 2
     st.write(st.session_state['product_name'])
+    st.write(st.session_state['product_price'])
+    st.write(st.session_state['product_needs'])
+
+
+    
     if st.button("Proceed"):
         final_product = final_recommendation(result_df,no_of_link)
         st.write(final_product)
