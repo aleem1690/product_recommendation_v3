@@ -142,9 +142,9 @@ def request_summary(user_input):
     output = f.call(user_input)
     return output
 
-def final_recommendation(summary_dict,no_of_link):
+def final_recommendation(result_dict,no_of_link):
     g = modal.Function.lookup("corise-final_recommendation-project","final_product")
-    output = g.call(summary_dict,no_of_link)
+    output = g.call(result_dict,no_of_link)
     return output
 
 if __name__ == '__main__':
