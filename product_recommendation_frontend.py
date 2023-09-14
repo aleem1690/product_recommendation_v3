@@ -99,23 +99,26 @@ def main():
         st.write(result_df["product_needs"])
         st.write("If the details are correct, please click proceed")
         if 'product_name' not in st.session_state:
-            st.session_state['product_name'] = result_df["product_name"][0]
+            st.session_state['product_name'] = result["product_name"]
         if 'product_needs' not in st.session_state:
             st.session_state['product_needs'] = result["product_needs"]
         if 'product_price' not in st.session_state and len(result_df["product_price"].unique())>0:
-            st.session_state['product_price'] = result_df["product_price"][0]
-        if 'result' not in st.session_state:
-            st.session_state['result'] = result
+            st.session_state['product_price'] = result["product_price"]
+
     no_of_link = 2
     #st.write(st.session_state['product_name'])
-    st.write(st.session_state['product_needs'])
-    st.write(st.session_state['result'])
+    #st.write(st.session_state['product_needs'])
+    #st.write(st.session_state['result'])
     #st.write(result)
 
 
     
     if st.button("Proceed"):
-        final_product = final_recommendation(result,no_of_link)
+        result_dict = {}
+        result_dict['product_name'] = st.session_state['product_name']
+        result_dict['product_price'] = st.session_state['product_price']
+        result_dict ['product_name'] = st.session_state['product_needs']
+        final_product = final_recommendation(result_dict,no_of_link)
         st.write(final_product)
         
         # data_prod_name = result_df["product_name"].drop_duplicates()
