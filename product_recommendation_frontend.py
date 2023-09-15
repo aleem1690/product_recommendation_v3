@@ -98,12 +98,16 @@ def main():
         st.write("These are your pririoties")
         st.write(result_df["product_needs"])
         st.write("If the details are correct, please click proceed")
-        if 'product_name' not in st.session_state:
-            st.session_state['product_name'] = result["product_name"]
-        if 'product_needs' not in st.session_state:
-            st.session_state['product_needs'] = result["product_needs"]
-        if 'product_price' not in st.session_state:
-            st.session_state['product_price'] = result["product_price"]
+        # if 'product_name' not in st.session_state:
+        #     st.session_state['product_name'] = result["product_name"]
+        # if 'product_needs' not in st.session_state:
+        #     st.session_state['product_needs'] = result["product_needs"]
+        # if 'product_price' not in st.session_state:
+        #     st.session_state['product_price'] = result["product_price"]
+
+        st.session_state['product_name'] = result["product_name"]
+        st.session_state['product_price'] = result["product_price"]
+        st.session_state['product_needs'] = result["product_needs"]
 
     no_of_link = 2
     #st.write(st.session_state['product_name'])
