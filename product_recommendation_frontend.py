@@ -109,7 +109,7 @@ def main():
     #st.write(st.session_state['product_name'])
     #st.write(st.session_state['product_needs'])
     #st.write(st.session_state['result'])
-    st.write(result)
+    #st.write(result)
 
 
     
