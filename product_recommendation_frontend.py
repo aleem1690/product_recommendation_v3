@@ -102,7 +102,7 @@ def main():
             st.session_state['product_name'] = result["product_name"]
         if 'product_needs' not in st.session_state:
             st.session_state['product_needs'] = result["product_needs"]
-        if 'product_price' not in st.session_state and len(result_df["product_price"].unique())>0:
+        if 'product_price' not in st.session_state:
             st.session_state['product_price'] = result["product_price"]
 
     no_of_link = 2
@@ -116,9 +116,9 @@ def main():
     if st.button("Proceed"):
         result_dict = {}
         result_dict['product_name'] = st.session_state['product_name']
-        result_dict['product_price'] = st.session_state['product_price']
-        result_dict ['product_name'] = st.session_state['product_needs']
-        st.write(result_dict['product_name'])
+        #result_dict['product_price'] = st.session_state['product_price']
+        #result_dict ['product_name'] = st.session_state['product_needs']
+        st.write(result_dict)
         final_product = final_recommendation(result_dict,no_of_link)
         st.write(final_product)
         
