@@ -118,7 +118,7 @@ def main():
         result_dict['product_name'] = st.session_state['product_name']
         result_dict['product_price'] = st.session_state['product_price']
         result_dict ['product_name'] = st.session_state['product_needs']
-        st.write(result_dict)
+        st.write(result_dict['product_name'])
         final_product = final_recommendation(result_dict,no_of_link)
         st.write(final_product)
         
